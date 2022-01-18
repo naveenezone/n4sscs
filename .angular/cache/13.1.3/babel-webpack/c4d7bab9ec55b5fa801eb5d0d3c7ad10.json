@@ -1,0 +1,1 @@
+{"ast":null,"code":"export const environment = {\n  production: false,\n  project_name: 'dmoscs',\n  image_name: 'img-c1-ng-dmoscslocdev',\n  container_name: 'c1-ng-dmoscslocdev',\n  IAM_API_URL: 'https://iamrws.n4softsol.ca'\n};","map":null,"metadata":{},"sourceType":"module"}

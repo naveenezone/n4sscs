@@ -1,0 +1,1 @@
+{"ast":null,"code":"export const environment = {\n  production: true,\n  project_name: 'n4sscs',\n  image_name: 'img-c1-ng-n4sscslocprd',\n  container_name: 'c1-ng-n4sscslocprd',\n  IAM_API_URL: 'https://iamrws.n4softsol.ca'\n};","map":null,"metadata":{},"sourceType":"module"}

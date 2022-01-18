@@ -1,0 +1,372 @@
+<!--Navbar Start-->
+<nav
+  class="navbar navbar-expand-lg fixed-top navbar-custom navbar-light sticky sticky-dark"
+  (window:scroll)="windowScroll()"
+  id="navbar"
+>
+  <div class="container">
+    <!-- LOGO -->
+    <a class="navbar-brand logo" href="/">
+      <!-- <img
+        src="assets/images/n4ss-logo-dark.png"
+        alt=""
+        class="logo-dark"
+        height="24"
+      /> -->
+      <!-- <img
+        src="assets/images/n4ss-logo-light.png"
+        alt=""
+        class="logo-light"
+        height="24"
+      /> -->
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarCollapse"
+      aria-controls="navbarCollapse"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+      (click)="toggleMenu()"
+    >
+      <i class="mdi mdi-menu"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav mx-auto navbar-center" id="mySidenav">
+        <li class="nav-item" [ngClass]="{ active: currentSection === 'home' }">
+          <a
+            href="javascript: void(0);"
+            [ngxScrollTo]="'#home'"
+            class="nav-link"
+            >Home</a
+          >
+        </li>
+        <li
+          class="nav-item"
+          [ngClass]="{ active: currentSection === 'features' }"
+        >
+          <a
+            href="javascript: void(0);"
+            [ngxScrollTo]="'#features'"
+            class="nav-link"
+            [ngxScrollToOffset]="5"
+            >Features</a
+          >
+        </li>
+        <li
+          class="nav-item"
+          [ngClass]="{ active: currentSection === 'pricing' }"
+        >
+          <a
+            href="javascript: void(0);"
+            [ngxScrollTo]="'#pricing'"
+            class="nav-link"
+            [ngxScrollToOffset]="5"
+            >Pricing</a
+          >
+        </li>
+        <li class="nav-item" [ngClass]="{ active: currentSection === 'blog' }">
+          <a
+            href="javascript: void(0);"
+            [ngxScrollTo]="'#blog'"
+            class="nav-link"
+            [ngxScrollToOffset]="5"
+            >Blog</a
+          >
+        </li>
+        <li
+          class="nav-item"
+          [ngClass]="{ active: currentSection === 'resources' }"
+        >
+          <a
+            *ngIf="authService.isUserLoggedIn()"
+            href="javascript: void(0);"
+            [ngxScrollTo]="'#resources'"
+            class="nav-link"
+            [ngxScrollToOffset]="5"
+            >Resources</a
+          >
+        </li>
+        <li
+          class="nav-item"
+          [ngClass]="{ active: currentSection === 'contact' }"
+        >
+          <a
+            href="javascript: void(0);"
+            [ngxScrollTo]="'#contact'"
+            class="nav-link"
+            [ngxScrollToOffset]="5"
+            >Contact Us</a
+          >
+        </li>
+      </ul>
+      <ul class="navbar-nav navbar-center">
+        <li class="nav-item">
+          <a
+            *ngIf="!authService.isUserLoggedIn()"
+            href="javascript: void(0);"
+            class="nav-link"
+            (click)="loginModal(logincontent)"
+            >Log in</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            *ngIf="!authService.isUserLoggedIn()"
+            href="javascript: void(0);"
+            class="nav-link"
+            (click)="registerModal(registercontent)"
+            >Register</a
+          >
+        </li>
+        <!-- Drop Down -->
+        <li>
+          <div class="col">
+            <br />
+            <div ngbDropdown>
+              <button
+                *ngIf="authService.isUserLoggedIn()"
+                class="btn rounded-pill btn-primary ml-2 mt-4 mt-sm-0"
+                id="gfg"
+                ngbDropdownToggle
+              >
+                Profile [{{ getUsername() }}]
+              </button>
+              <div ngbDropdownMenu="gfg">
+                <button ngbDropdownItem>Dashboard</button>
+                <button ngbDropdownItem>Reset Password</button>
+                <button ngbDropdownItem (click)="authService_logout()">
+                  Logout
+                </button>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- Drop Down -->
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- Navbar End -->
+<div
+  appScrollspy
+  [spiedTags]="['SECTION']"
+  (sectionChange)="onSectionChange($event)"
+>
+  <!-- Hero Start -->
+  <section
+    class="hero-6-bg position-relative"
+    style="background-image: url(assets/images/hero-6-bg-img.jpg)"
+    id="home"
+  >
+    <div class="bg-overlay"></div>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="text-center">
+            <h1 class="text-white hero-6-title mb-4 line-height-1_4">
+              We help startups launch their web and mobile application easily.
+            </h1>
+            <p class="text-white-50 w-75 mx-auto font-size-15">
+              We help enterprises to deploy, scale, and manage containerized applications anywhere.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="text-center Subcribe-form mt-5">
+            <form action="#">
+              <input type="text" placeholder="Enter your Email..." />
+              <button
+                type="submit"
+                class="btn rounded-pill btn-primary ml-2 mt-4 mt-sm-0"
+              >
+                Subscribe
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Hero End -->
+
+  <app-services></app-services>
+  <app-features></app-features>
+  <app-pricing></app-pricing>
+  <app-blog></app-blog>
+  <app-resources></app-resources>
+  <app-contact></app-contact>
+  <app-footer></app-footer>
+</div>
+
+<ng-template #logincontent let-c="close" let-d="dismiss">
+  <div class="modal-body">
+    <div class="text-center">
+      <h3 class="title mb-4">Welcome To Lezir</h3>
+      <h4 class="text-uppercase text-primary"><b>Login</b></h4>
+    </div>
+    <div class="login-form mt-4">
+      <!-- <form>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Username / Email</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Youremail@gmail.com">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+          </div>
+          <a href="javascript: void(0);" class="float-right text-muted font-size-15">Forgot Password.?</a>
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="customCheck1">
+            <label class="custom-control-label font-size-15" for="customCheck1">Remember Me</label>
+          </div>
+          <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary">Login <i-feather class="icon-size-15 icon ml-1"
+                name="arrow-right-circle"></i-feather></button>
+          </div>
+        </form> -->
+      <form (ngSubmit)="handleLogin()" #loginForm="ngForm">
+        <!-- <div class="form-group">
+            <label for="exampleInputEmail1">Username / Email</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Youremail@gmail.com">
+          </div> -->
+        <div class="form-group">
+          <label for="login">Username / Email</label>
+          <input
+            type="text"
+            class="form-control"
+            id="login"
+            required
+            #login="ngModel"
+            [(ngModel)]="username"
+            name="login"
+            placeholder="login"
+          />
+        </div>
+        <!-- <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+          </div> -->
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            [(ngModel)]="password"
+            name="password"
+            placeholder="password"
+          />
+        </div>
+        <a
+          href="javascript: void(0);"
+          class="float-right text-muted font-size-15"
+          >Forgot Password.?</a
+        >
+        <div class="custom-control custom-checkbox">
+          <input
+            type="checkbox"
+            class="custom-control-input"
+            id="customCheck1"
+          />
+          <label class="custom-control-label font-size-15" for="customCheck1"
+            >Remember Me</label
+          >
+        </div>
+        <div class="text-center mt-4">
+          <button type="submit" class="btn btn-primary">
+            Login
+            <i-feather
+              class="icon-size-15 icon ml-1"
+              name="arrow-right-circle"
+            ></i-feather>
+          </button>
+        </div>
+      </form>
+      <!-- <div class="text-center">
+        <p class="text-muted mb-0">
+          New User?
+          <a
+          href="javascript: void(0);"
+          class="text-primary"
+          (click)="registerModal(registercontent)"
+          >Signup</a>
+        </p>
+      </div> -->
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #registercontent let-c="close" let-d="dismiss">
+  <div class="modal-body">
+    <div class="text-center">
+      <h3 class="title mb-4">Welcome To Lezir</h3>
+      <h4 class="text-uppercase text-primary"><b>Register</b></h4>
+    </div>
+    <div class="login-form mt-4">
+      <form>
+        <div class="form-group">
+          <label for="exampleInputUsername">User Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="exampleInputUsername"
+            placeholder="Enter Name"
+          />
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail2">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="exampleInputEmail2"
+            placeholder="Youremail@gmail.com"
+          />
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword2">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="exampleInputPassword2"
+            placeholder="Password"
+          />
+        </div>
+        <a
+          href="javascript: void(0);"
+          class="float-right text-muted font-size-15"
+          >Forgot Password.?</a
+        >
+        <div class="custom-control custom-checkbox">
+          <input
+            type="checkbox"
+            class="custom-control-input"
+            id="customCheck2"
+          />
+          <label class="custom-control-label font-size-15" for="customCheck2"
+            >Remember Me</label
+          >
+        </div>
+        <div class="text-center mt-4">
+          <button type="submit" class="btn btn-primary">
+            Register
+            <i-feather
+              class="icon-size-15 icon ml-1"
+              name="arrow-right-circle"
+            ></i-feather>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+<!--- index.html -->
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  crossorigin="anonymous"
+  integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+/>
